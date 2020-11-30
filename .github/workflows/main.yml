@@ -18,11 +18,10 @@ jobs:
             login ssullivan61198@gmail.com
             password $HEROKU_API_KEY
           EOF
-      - name: Set Heroku remote
-        env: 
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku git:remote -a gwwc-data-table-react
       - name: Push to Heroku
         env: 
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: git push heroku main
+        run: |
+          heroku git:remote -a gwwc-data-table-react
+          git fetch --all --unshallow
+          git push heroku main
